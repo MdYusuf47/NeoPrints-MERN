@@ -1,7 +1,16 @@
-import Pin from "../models/pin.model.js"
-
+import Pin from "../models/pin.model.js";
 
 export const getPins = async (req, res) => {
-   const pins = await Pin.find()
-   res.status(200).json(pins)
-}
+  const pageNumber = Number(req.query.cursor) || 0;
+  const LIMIT = 21;
+  const pins = await Pin.find()
+    .limit(LIMIT)
+    .skip(pageNumber * LIMIT);
+
+  const hasNextPage = pins.length === LIMIT;
+
+  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
+  res
+    .status(200)
+    .json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
+};
