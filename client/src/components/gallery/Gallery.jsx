@@ -170,17 +170,19 @@ import InfiniteScroll from "react-infinite-scroll-component";
 //   },
 // ];
 
-const fetchPins = async ({ pageParam }) => {
+const fetchPins = async ({ pageParam, search }) => {
   const res = await axios.get(
-    `${import.meta.env.VITE_API_ENDPOINT}/pins?cursor=${pageParam}`
+    `${import.meta.env.VITE_API_ENDPOINT}/pins?cursor=${
+      pageParam
+    }&search=${search || ""}`
   );
   return res.data;
 };
 
-const Gallery = () => {
+const Gallery = ({ search }) => {
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
-    queryKey: ["pins"],
-    queryFn: fetchPins,
+    queryKey: ["search"],
+    queryFn: ({pageParam = 0}) => fetchPins({ pageParam, search }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
   });
@@ -195,7 +197,7 @@ const Gallery = () => {
       next={fetchNextPage}
       hasMore={!!hasNextPage}
       loader={<h4>Loading...</h4>}
-      endMessage = {<h3>All post Loaded!</h3>}
+      endMessage={<h3>All post Loaded!</h3>}
     >
       <div className="gallery">
         {allPins.map((item) => (
