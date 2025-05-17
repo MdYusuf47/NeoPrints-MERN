@@ -2,10 +2,28 @@ import React, { useState } from "react";
 import "./ProfilePage.css";
 import Image from "../../components/image/Image";
 import Collections from "../../components/collections/Collections";
-import Gallery from "../../components/gallery/Gallery"
+import Gallery from "../../components/gallery/Gallery";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
+import apiRequest from "../../utils/apiRequest";
 
 const ProfilePage = () => {
   const [type, setType] = useState("Saved");
+
+  const { username } = useParams();
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ["profile", username],
+    queryFn: () => apiRequest.get(`/users/${username}`).then((res) => res.data),
+  });
+
+  if (isPending) return "Loading...";
+
+  if (error) return "An error has occurred: " + error.message;
+
+  if (!data) return "User not found!";
+
+
   return (
     <div className="profilePage">
       <Image className="profileImg" path="/general/noAvatar.png" alt="" />
@@ -34,7 +52,7 @@ const ProfilePage = () => {
           Saved
         </span>
       </div>
-      {type === "created" ? <Gallery/> : <Collections/>}
+      {type === "created" ? <Gallery /> : <Collections />}
     </div>
   );
 };
