@@ -17,8 +17,6 @@ const Boards = ({ userId }) => {
 
   if (!data) return "data not found!";
 
-  console.log(data);
-
   return (
     <div className="collections">
       {data.map((board) => (

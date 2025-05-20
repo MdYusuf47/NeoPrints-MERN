@@ -40,7 +40,7 @@ const PostPage = () => {
             <Image src={data.user.img || "/general/noAvatar.png"} />
             <span>{data.user.displayname}</span>
           </Link>
-          <Comment />
+          <Comment id={data._id}/>
         </div>
       </div>
     </div>
