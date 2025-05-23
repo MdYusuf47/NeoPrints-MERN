@@ -1,13 +1,13 @@
-import React, { useState } from "react";
 import "./comment.css";
 import Image from "../image/Image";
 import EmojiPicker from "emoji-picker-react";
 import { useQuery } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 import Comments from "./comments";
+import CommentForm from "./CommentForm";
 
 const Comment = ({ id }) => {
-  const [open, setOpen] = useState(false);
+  
   const { isPending, error, data } = useQuery({
     queryKey: ["comments", id],
     queryFn: () => apiRequest.get(`/comment/${id}`).then((res) => res.data),
@@ -27,17 +27,7 @@ const Comment = ({ id }) => {
           <Comments key={comment._id} comment={comment} />
         ))}
       </div>
-      <form className="commentForm">
-        <input type="text" placeholder="Add a comment..." />
-        <div className="emoji">
-          <div onClick={() => setOpen((prev) => !prev)}>😊</div>
-          {open && (
-            <div className="emojiPicker">
-              <EmojiPicker />
-            </div>
-          )}
-        </div>
-      </form>
+        <CommentForm/>
     </div>
   );
 };
