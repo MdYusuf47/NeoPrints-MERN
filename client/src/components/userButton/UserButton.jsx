@@ -1,11 +1,24 @@
 import React, { useState } from "react";
 import "./UserButton.css";
 import Image from "../image/Image";
+import apiRequest from "../../utils/apiRequest";
+import { useNavigate } from "react-router";
 
 const UserButton = () => {
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const currentUser = true;
+
+  const handleLogout = async () => {
+    try {
+      await apiRequest.post("/users/auth/logout", {});
+      navigate("/auth");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return currentUser ? (
     <div className="userButton">
@@ -15,15 +28,15 @@ const UserButton = () => {
       </div>
       {open && (
         <div className="userOptions">
-          <a href="/" className="userOption">
+          <div href="/" className="userOption">
             Profile
-          </a>
-          <a href="/" className="userOption">
+          </div>
+          <div href="/" className="userOption">
             Settings
-          </a>
-          <a href="/" className="userOption">
+          </div>
+          <div href="/" className="userOption" onClick={handleLogout}>
             Logout
-          </a>
+          </div>
         </div>
       )}
     </div>
