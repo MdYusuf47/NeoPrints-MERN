@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import "./UserButton.css";
 import Image from "../image/Image";
 import apiRequest from "../../utils/apiRequest";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuthStore from "../../utils/authStore";
 
 const UserButton = () => {
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
 
-  const currentUser = true;
+  // const currentUser = true;
+  const {currentUser,removeCurrentUser} = useAuthStore()
+  console.log(currentUser);
 
   const handleLogout = async () => {
     try {
       await apiRequest.post("/users/auth/logout", {});
+      removeCurrentUser();
       navigate("/auth");
     } catch (err) {
       console.log(err);
@@ -22,15 +26,15 @@ const UserButton = () => {
 
   return currentUser ? (
     <div className="userButton">
-      <Image path="/general/noAvatar.png" alt="" />
+      <Image path={currentUser.img || "/general/noAvatar.png"} alt="" />
       <div onClick={() => setOpen((prev) => !prev)}>
         <Image path="/general/arrow.svg" alt="" className="arrow" />
       </div>
       {open && (
         <div className="userOptions">
-          <div href="/" className="userOption">
+          <Link to={`/profile/${currentUser.username}`} className="userOption">
             Profile
-          </div>
+          </Link>
           <div href="/" className="userOption">
             Settings
           </div>
@@ -41,9 +45,9 @@ const UserButton = () => {
       )}
     </div>
   ) : (
-    <a href="/" className="loginLink">
+    <Link to="/auth" className="loginLink">
       Login / Sign up
-    </a>
+    </Link>
   );
 };
 
