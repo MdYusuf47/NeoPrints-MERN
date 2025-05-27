@@ -1,10 +1,8 @@
 import "./comment.css";
-import Image from "../image/Image";
-import EmojiPicker from "emoji-picker-react";
 import { useQuery } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
-import Comments from "./comments";
 import CommentForm from "./CommentForm";
+import Comments from "./Comments";
 
 const Comment = ({ id }) => {
   
@@ -27,7 +25,7 @@ const Comment = ({ id }) => {
           <Comments key={comment._id} comment={comment} />
         ))}
       </div>
-        <CommentForm/>
+        <CommentForm id={id} />
     </div>
   );
 };
