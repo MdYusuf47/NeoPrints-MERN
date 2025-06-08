@@ -1,9 +1,15 @@
 import { useEffect, useRef } from "react";
 import useEditorStore from "../../utils/editorStore";
+import Image from "../image/image";
 
 const Workspace = ({ previewImg }) => {
-  const { setSelectedLayer,textOptions, setTextOptions, canvasOptions, setCanvasOptions } =
-    useEditorStore();
+  const {
+    setSelectedLayer,
+    textOptions,
+    setTextOptions,
+    canvasOptions,
+    setCanvasOptions,
+  } = useEditorStore();
 
   useEffect(() => {
     if (canvasOptions.height === 0) {
@@ -16,7 +22,6 @@ const Workspace = ({ previewImg }) => {
       });
     }
   }, [previewImg, canvasOptions, setCanvasOptions]);
-
 
   const itemRef = useRef(null);
   const containerRef = useRef(null);

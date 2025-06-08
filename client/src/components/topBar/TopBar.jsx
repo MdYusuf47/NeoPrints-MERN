@@ -1,7 +1,7 @@
 import React from "react";
 import "./TopBar.css";
 import UserButton from "../userButton/UserButton";
-import Image from "../image/Image";
+import Image from "../image/image";
 import { useNavigate } from "react-router";
 
 const TopBar = () => {

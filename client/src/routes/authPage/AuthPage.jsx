@@ -1,44 +1,48 @@
 import React, { useState } from "react";
 import "./AuthPage.css";
-import Image from "../../components/image/Image";
-import apiRequest from "../../utils/apiRequest";
+import Image from "../../components/image/image";import apiRequest from "../../utils/apiRequest";
 import { useNavigate } from "react-router";
 import useAuthStore from "../../utils/authStore";
 
 const AuthPage = () => {
-  const [isRegister, setIsRegister] = useState(false);
+   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const {setCurrentUser} = useAuthStore()
+  const { setCurrentUser } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+
     const data = Object.fromEntries(formData);
 
     try {
-      const res = await apiRequest.post(`/users/auth/${isRegister ? "register" : "login"}`, data);
+      const res = await apiRequest.post(
+        `/users/auth/${isRegister ? "register" : "login"}`,
+        data
+      );
+
       setCurrentUser(res.data);
+
       navigate("/");
     } catch (err) {
       setError(err.response.data.message);
     }
   };
-
   return (
     <div className="authPage">
       <div className="authContainer">
-        <Image path="/general/logone.png" w={40} h={40} alt="" />
+        <Image path="/general/logo.png" w={36} h={36} alt="" />
         <h1>{isRegister ? "Create an Account" : "Login to your account"}</h1>
         {isRegister ? (
           <form key="register" onSubmit={handleSubmit}>
             <div className="formGroup">
-              <label htmlFor="username">username</label>
+              <label htmlFor="username">Username</label>
               <input
                 type="username"
-                placeholder="Enter your username"
+                placeholder="Username"
                 required
                 name="username"
                 id="username"
@@ -58,7 +62,7 @@ const AuthPage = () => {
               <label htmlFor="email">Email</label>
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Email"
                 required
                 name="email"
                 id="email"
@@ -68,7 +72,7 @@ const AuthPage = () => {
               <label htmlFor="password">Password</label>
               <input
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Password"
                 required
                 name="password"
                 id="password"
@@ -86,7 +90,7 @@ const AuthPage = () => {
               <label htmlFor="email">Email</label>
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Email"
                 required
                 name="email"
                 id="email"
@@ -96,7 +100,7 @@ const AuthPage = () => {
               <label htmlFor="password">Password</label>
               <input
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Password"
                 required
                 name="password"
                 id="password"

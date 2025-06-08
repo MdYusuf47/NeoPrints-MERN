@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./ProfilePage.css";
-import Image from "../../components/image/Image";
+import Image from "../../components/image/image";
 import Boards from "../../components/Boards/Boards";
-import Gallery from "../../components/gallery/Gallery";
+import Gallery from "../../components/gallery/gallery";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import apiRequest from "../../utils/apiRequest";

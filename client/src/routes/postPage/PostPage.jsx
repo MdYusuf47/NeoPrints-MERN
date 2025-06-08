@@ -1,5 +1,5 @@
 import "./PostPage.css";
-import Image from "../../components/image/Image";
+import Image from "../../components/image/image";
 import PostInteractions from "../../components/postInteractions/PostInteractions";
 import { Link, useParams } from "react-router";
 import Comment from "../../components/comment/Comment";

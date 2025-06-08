@@ -1,12 +1,13 @@
-import React from "react";
-import Image from "../image/Image";
 import useEditorStore from "../../utils/editorStore";
+import Image from "../image/image";
 
 const Layers = () => {
   const { selectedLayer, setSelectedLayer, addText, canvasOptions } =
     useEditorStore();
+
   const handleSelectedLayer = (layer) => {
     setSelectedLayer(layer);
+
     if (layer === "text") {
       addText();
     }

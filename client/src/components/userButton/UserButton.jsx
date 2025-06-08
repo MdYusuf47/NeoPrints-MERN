@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./UserButton.css";
-import Image from "../image/Image";
+import Image from "../image/image";
 import apiRequest from "../../utils/apiRequest";
 import { Link, useNavigate } from "react-router";
 import useAuthStore from "../../utils/authStore";
@@ -10,8 +10,11 @@ const UserButton = () => {
 
   const navigate = useNavigate();
 
+  // TEMP
   // const currentUser = true;
-  const {currentUser,removeCurrentUser} = useAuthStore()
+
+  const { currentUser, removeCurrentUser } = useAuthStore();
+
   console.log(currentUser);
 
   const handleLogout = async () => {
@@ -35,10 +38,8 @@ const UserButton = () => {
           <Link to={`/profile/${currentUser.username}`} className="userOption">
             Profile
           </Link>
-          <div href="/" className="userOption">
-            Settings
-          </div>
-          <div href="/" className="userOption" onClick={handleLogout}>
+          <div className="userOption">Setting</div>
+          <div className="userOption" onClick={handleLogout}>
             Logout
           </div>
         </div>
@@ -46,7 +47,7 @@ const UserButton = () => {
     </div>
   ) : (
     <Link to="/auth" className="loginLink">
-      Login / Sign up
+      Login / Sign Up
     </Link>
   );
 };

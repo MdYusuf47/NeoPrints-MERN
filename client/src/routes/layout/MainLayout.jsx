@@ -1,9 +1,9 @@
 import React from "react";
 import LeftBar from "../../components/leftBar/leftBar";
-import TopBar from "../../components/topBar/topBar";
 import Gallery from "../../components/gallery/gallery";
 import { Outlet } from "react-router";
 import './MainLayout.css'
+import TopBar from "../../components/topBar/TopBar";
 
 
 const MainLayout = () => {
